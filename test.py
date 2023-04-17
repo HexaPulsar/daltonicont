@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from clases import *
 # STEP 2
 # file path you want to extract images from
-file = "Ishihara_Tests.pdf"
+file = "pdf_test/Ishihara_Tests.pdf"
   
 # open the file
 pdf_file = fitz.open(file)
@@ -40,7 +40,7 @@ for page_index in range(len(pdf_file)):
         image_name = str(image_index) + '.' + image_ext
         #Save image
 
-        images_path = "/home/magda/daltonicos/env-dal/extractinpage"+str(image_index)+str(page_index)
+        images_path = "daltonicont/extraction/extractinpage"+str(image_index)+str(page_index)
         
         valid_ext = ['jpg', 'jpeg', 'png']
         if image_ext in valid_ext:
@@ -62,3 +62,4 @@ def pdf_to_png():
                             colorspace=fitz.csRGB, clip=None, alpha=False, annots=True)
       pix.save("samplepdfimage-%i.jpg" % page.number)  # save file
 
+      

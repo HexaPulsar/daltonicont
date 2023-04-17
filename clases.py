@@ -9,3 +9,5 @@ class struct_image:
     self.xres = image["xres"]
     self.yres = image["yres"]
     self.image = image["image"]
+
+
