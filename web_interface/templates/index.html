@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Home</h1>
+<form method='POST' enctype='multipart/form-data'>
+    {{file_form.hidden_tag()}}
+    {{file_form.file()}}
+    {{file_form.submit()}}
+
+</form>
+{% endblock %}
+
+
