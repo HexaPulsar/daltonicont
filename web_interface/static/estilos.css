@@ -1,0 +1,12 @@
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  
+  
+  
