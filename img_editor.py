@@ -35,5 +35,5 @@ def png_to_pdf(imgs_path, output_path,encoding = 'RGB'):
 
 #RUNTIMEEE#
 
-#pdf_to_png('pdf_test\Ishihara_Tests.pdf',1200,'output')
+pdf_to_png('pdf_test\TestColors.pdf',1200,'output')
 png_to_pdf('output\images',output_path='output\pdf')
