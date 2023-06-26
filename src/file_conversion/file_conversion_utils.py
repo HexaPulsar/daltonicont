@@ -1,6 +1,5 @@
 import fitz
-from tqdm import tqdm
-from PIL import Image
+from tqdm import tqdm 
 from skimage.io import imread_collection
 import glob
 from fpdf import FPDF
@@ -31,9 +30,3 @@ def png_to_pdf(imgs_path, output_path,encoding = 'RGB'):
         pdf.image(image,0,0,210,297) #dimensiones de una pagina a4 estandar
     
     pdf.output(output_path+'\\archivo.pdf')
-
-
-#RUNTIMEEE#
-
-pdf_to_png('pdf_test\TestColors.pdf',1200,'output')
-png_to_pdf('output\images',output_path='output\pdf')
