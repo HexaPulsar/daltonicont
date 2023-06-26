@@ -12,6 +12,9 @@ file = "pdf_test/Ishihara_Tests.pdf"
 # open the file
 pdf_file = fitz.open(file)
   
+
+
+
 # STEP 3
 # iterate over PDF pages
 for page_index in range(len(pdf_file)):
@@ -55,11 +58,4 @@ for page_index in range(len(pdf_file)):
                 image_file.close()
             print("image saved!")
 
-
-def pdf_to_png():
-  for page in pdf_file:
-      pix = page.get_pixmap(matrix=fitz.Identity, dpi=None,
-                            colorspace=fitz.csRGB, clip=None, alpha=False, annots=True)
-      pix.save("samplepdfimage-%i.jpg" % page.number)  # save file
-
-      
+ 
