@@ -157,6 +157,9 @@ def hsv_to_rgb(hsv):
 
 def hsv_color_correct(img, colorblind_type='deuteranopia'):
     rgb_img = img/255
+    print(rgb_img)
+    print(rgb_img.shape)
+    
     hsv_img = rgb_to_hsv(img)
     if colorblind_type in ['deuteranopia ', 'protanopia', 'deut', 'pro', 'd', 'p']:
         green_ratio = (hsv_img[..., 0] - (60/360))/rgb_img[..., 1]
