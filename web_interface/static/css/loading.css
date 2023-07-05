@@ -1,0 +1,31 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Ajusta esta altura según tus necesidades */
+}
+
+.loader {
+  border: 16px solid #969494; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh; /* Ajusta esta altura según tus necesidades */
+}
+
+h1 {
+  margin: 0; /* Elimina el margen predeterminado */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Home</h1>
+<h1>Ingresa tu archivo .pdf para que lo podamos transformar!</h1>
 <form method='POST' enctype='multipart/form-data'>
     {{file_form.hidden_tag()}}
     {{file_form.file()}}
