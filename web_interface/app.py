@@ -7,14 +7,15 @@ import time
 from wtforms.validators import InputRequired
 import threading
 import datetime
+import backend.filter as filter
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER_FILES'] = 'static/files/'
 app.config['UPLOAD_FOLDER_IMAGES'] = 'static/images/'
 app.config['UPLOAD_EXTENSIONS'] = ['.txt', '.pdf']
-app.config['MODIFIED_FILENAME'] = 'temporal' + app.config['UPLOAD_EXTENSIONS'][0]
-app.config['DOWNLOAD_FILENAME'] = 'modified' + app.config['UPLOAD_EXTENSIONS'][0]
+app.config['USER_FILENAME'] = 'archivo' + app.config['UPLOAD_EXTENSIONS'][1]
+app.config['TRANSFORMED_FILENAME'] = 'filtrado' + app.config['UPLOAD_EXTENSIONS'][1]
 
 # Variables para actualizar el contador
 tiempo_final = datetime.datetime.now()
@@ -62,9 +63,10 @@ def home():
         file_ext = os.path.splitext(filename)[1] # Get file extention
         if file_ext not in app.config['UPLOAD_EXTENSIONS']: # Check if file extention is allowed
             return render_template('not_pdf.html')
+        app.config['DOWNLOAD_FILENAME'] = os.path.splitext(filename)[0] + "_modified" + file_ext
         ruta_carpeta = os.path.join(os.getcwd(),'web_interface', 'static', 'files')
         crear_carpeta(ruta_carpeta)
-        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER_FILES'],secure_filename(app.config['MODIFIED_FILENAME']))) # Then save the file
+        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER_FILES'],secure_filename(app.config['USER_FILENAME']))) # Then save the file
         ruta_archivo = os.path.join(os.getcwd(),'web_interface' ,'static', 'files',app.config['DOWNLOAD_FILENAME'])
         borrar_archivo(ruta_archivo)
         return redirect(url_for('parameters')) # Go to param.html
@@ -97,7 +99,7 @@ def parameters():
 @app.route('/wait')
 def wait():
     mensaje = session.get('msg')
-    t = threading.Thread(target=write_text, args=(app.config['DOWNLOAD_FILENAME'],mensaje))
+    t = threading.Thread(target=filter.full_pipeline, args=(mensaje))
     t.start()
     return render_template('wait.html')
 
@@ -117,7 +119,7 @@ def tiempo_restante():
 # Función para comprobar si ya existe el archivo transformado
 @app.route("/comprobar_archivo")
 def comprobar_archivo():
-    ruta_archivo = os.path.join(os.getcwd(),'web_interface' ,'static', 'files',app.config['DOWNLOAD_FILENAME'])  # Ruta completa al archivo que estás esperando
+    ruta_archivo = os.path.join(os.getcwd(),'web_interface' ,'static', 'files',app.config['TRANSFORMED_FILENAME'])  # Ruta completa al archivo que estás esperando
     if os.path.isfile(ruta_archivo):
         return jsonify({"archivo_existe": True})
     else:
@@ -136,7 +138,7 @@ def result():
 @app.route('/download') 
 def download_file():
     return send_file(
-        app.config['UPLOAD_FOLDER_FILES'] + app.config['DOWNLOAD_FILENAME'],
+        app.config['UPLOAD_FOLDER_FILES'] + app.config['TRANSFORMED_FILENAME'],
         download_name=app.config['DOWNLOAD_FILENAME'],
         as_attachment=True
     )
