@@ -7,7 +7,7 @@ import time
 from wtforms.validators import InputRequired
 import threading
 import datetime
-import backend.filter as filter
+from backend import filter
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
@@ -99,7 +99,7 @@ def parameters():
 @app.route('/wait')
 def wait():
     mensaje = session.get('msg')
-    t = threading.Thread(target=filter.full_pipeline, args=(mensaje))
+    t = threading.Thread(target=filter.full_pipeline, args=(mensaje,))
     t.start()
     return render_template('wait.html')
 

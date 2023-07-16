@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np 
 import glob
 import os
-import colorblind_library_copy
+from backend import colorblind_library_copy
 
 
 def bwBin(img, upper, lower):
@@ -103,16 +103,15 @@ def full_pipeline(str_list:list):
         img_inv = bwinv(img_bin)
         img_inv.save(os.path.join(os.getcwd(), 'output','images','filtered_png',f'filtered-{i}.png'))
         i+=1
-    png_to_pdf(os.path.join(os.getcwd(), 'output','images','filtered_png'), os.path.join(os.getcwd(), 'output','pdf',''), encoding = 'RGB')
+    png_to_pdf(os.path.join(os.getcwd(), 'output','images','filtered_png'), os.path.join(os.getcwd(), 'web_interface','static','files'), encoding = 'RGB')
 
 
-full_pipeline(['tritanopia'])
+
+
+#full_pipeline(['tritanopia'])
 """
 if __name__ == "__main__":
-
-  print("ola")
-  # probar con  resources/img/metro_example.png
-  # Igual si u.u
+ 
   imgdir = sys.argv[1]
   img = Image.open(imgdir)
   #
