@@ -81,7 +81,7 @@ def cbfs_correct(img, closeness=70):
     else:
         proximity_matrix = np.abs(img[..., 1] - np.array([[[255, ]]]))
     proximity_matrix = np.reshape(proximity_matrix, newshape=(img.shape[0], img.shape[1], 1))
-    print(proximity_matrix.shape)
+     
     hsl_img = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
     hsl_img = np.where(
         proximity_matrix < closeness,
@@ -156,9 +156,7 @@ def hsv_to_rgb(hsv):
     return rgb.astype('uint8')
 
 def hsv_color_correct(img, colorblind_type='deuteranopia'):
-    rgb_img = img/255
-    print(rgb_img)
-    print(rgb_img.shape)
+    rgb_img = img/255 
     
     hsv_img = rgb_to_hsv(img)
     if colorblind_type in ['deuteranopia ', 'protanopia', 'deut', 'pro', 'd', 'p']:

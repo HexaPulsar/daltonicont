@@ -70,6 +70,10 @@ def bwinv(img):
   return imgcpy
 
 if __name__ == "__main__":
+  
+
+
+
   print("ola")
   # probar con  resources/img/metro_example.png
   # Igual si u.u
