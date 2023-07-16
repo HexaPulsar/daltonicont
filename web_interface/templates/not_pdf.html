@@ -1,0 +1,23 @@
+{% extends "layout_fijo.html"%}
+
+{% block title %}Ups{% endblock %}
+
+
+{% block content %}
+
+<h1>No permitimos este tipo de archivos :(</h1>
+
+
+<div style="display: flex; justify-content: center;">
+    <iframe src="https://giphy.com/embed/vuP4lZB1bpTq2FY5WF" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+<p style="text-align: center;"><a href="https://giphy.com/gifs/texasscience-soccer-fail-futbol-vuP4lZB1bpTq2FY5WF">via GIPHY</a></p>
+
+<h3>Solamente podemos transformar archivos <span style="color: red;">pdf</span> </h3>
+<h3>a menos que compres la versión Premium, que estará próximamente</h3>
+<h3>Pulsa el botón para <span style="color: rgb(16,204,244);">volver a intentarlo</span> con un archivo <span style="color: red;">pdf</span></h3>
+<form action="/" method="GET">
+    <button type="submit" class="btn btn-info">Volver a intentarlo</button>
+</form>
+
+{% endblock %}

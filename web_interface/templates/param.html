@@ -1,25 +1,42 @@
-{% extends "layout.html"%}
+{% extends "layout_variable.html"%}
+
+{% block title %}Parámetros{% endblock %}
+
 
 {% block content %}
-<h1>Recibimos tu archivo. A continuación elije lo que más te acomode:</h1> <br>
+<h1>Recibimos tu archivo.</h1> 
+
+<h3>Podemos transformar archivos para personas que tengam daltonismo dicromático, lo que incluye:</h3>
+<h3>Deuteranopia, Protanopia y Tritanopia</h3>
+<h2>A continuación elije la opción que aplique a tu caso:</h2>
+<br>
 
 <form method="post">
     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value="1" name="preferences">
-        <label class="btn btn-outline-primary" for="btncheck1">Opción 1</label>
-        
-        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" value="2" name="preferences">
-        <label class="btn btn-outline-primary" for="btncheck2">Opción 2</label>
-        
-        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" value="3" name="preferences">
-        <label class="btn btn-outline-primary" for="btncheck3">Opción 3</label>
-        
-      </div>
+        <img src='static/images/deuteranopia.png' alt="User Image" width="100%" height="100%">
+        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value="deuteranopia" name="preferences" >
+        <label class="btn btn-outline-primary" for="btncheck1">Deuteranopía</label>
+    </div>
     <br>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <img src='static/images/protanopia.png' alt="User Image" width="100%" height="100%">
+        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" value="protanopia" name="preferences">
+        <label class="btn btn-outline-primary" for="btncheck2">&nbsp;&nbsp;Protanopía&nbsp;&nbsp;</label>
+    </div>
+    <br>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <img src='static/images/tritanopia.png' alt="User Image" width="100%" height="100%">
+        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" value="tritanopia" name="preferences">
+        <label class="btn btn-outline-primary" for="btncheck3">&nbsp;&nbsp;&nbsp;Tritanopía&nbsp;&nbsp;&nbsp;</label>
+    </div>
+    <br>
+    <h3>Cuando termines de elegir, pulsa el botón de <span style="color: red;">Transformar</span> para que transformemos tu archivo</h3>
+
     <div class="d-grid gap-2 col-1 mx-auto">
-        <button class="btn btn-primary" type="submit">Enviar</button>
+        <button class="btn btn-danger" type="submit">Transformar</button>
     </div>
 
 </form>
 
-{% endblock %}a
+
+{% endblock %}

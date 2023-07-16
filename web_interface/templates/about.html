@@ -1,4 +1,7 @@
-{% extends "layout.html"%}
+{% extends "layout_fijo.html"%}
+
+{% block title %}Acerca de nosotros{% endblock %}
+
 
 {% block content %}
 <h1>Acerca de Nosotros</h1>
@@ -7,7 +10,12 @@
     elegir los parámetros que más se acomoden a la persona. Con esto, 
     se ejecturá un algoritmo que transformará el archivo original y se dará la opción de descargarlo una vez modificado. A continuación se muestra la arquitectura de este servicio web:</p>
 <center>
-    <img src="{{ user_image }}" alt="User Image" width="50%" height="50%">
+    <img src="{{ user_image }}" alt="User Image" width="40%" height="40%">
 </center>
+
+
+<form action="/" method="GET">
+    <button type="submit" class="btn btn-info">Quiero intentarlo!</button>
+</form>
 
 {% endblock %}

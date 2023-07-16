@@ -1,13 +1,23 @@
-{% extends "layout.html" %}
+{% extends "layout_fijo.html"%}
+
+{% block title %}Home{% endblock %}
+
 
 {% block content %}
-<h1>Ingresa tu archivo .pdf para que lo podamos transformar!</h1>
-<form method='POST' enctype='multipart/form-data'>
-    {{file_form.hidden_tag()}}
-    {{file_form.file()}}
-    {{file_form.submit()}}
+<h1>Ingresa tu archivo en formato <span style="color: red;">pdf</span> para que lo podamos transformar!</h1>
+<div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+      {{file_form.hidden_tag()}}
+      {{ file_form.file() }}
+      {{file_form.submit()}}
+    </form>
+</div>
 
-</form>
+<div style="display: flex; justify-content: center;">
+  <iframe src="https://giphy.com/embed/6pfEK1odbmcNi" width="360" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+<p style="text-align: center;"><a href="https://giphy.com/gifs/page-welcome-6pfEK1odbmcNi">via GIPHY</a></p>
+
 {% endblock %}
 
 

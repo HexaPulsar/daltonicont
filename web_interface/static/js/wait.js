@@ -7,7 +7,7 @@ $(document).ready(function() {
                 if (response.archivo_existe) {
                     window.location.href = "/result";
                 } else {
-                    setTimeout(comprobarArchivo, 5000);  // Realizar la comprobación cada segundo (1000 ms)
+                    setTimeout(comprobarArchivo, 10000);  // Realizar la comprobación cada segundo (1000 ms)
                 }
             }
         });

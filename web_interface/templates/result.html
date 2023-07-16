@@ -1,8 +1,20 @@
-{% extends "layout.html"%}
+{% extends "layout_fijo.html"%}
+
+{% block title %}Listo!{% endblock %}
+
 
 {% block content %}
-<h1>Modificamos tu archivo. Ya lo puedes descargar :)</h1>
-<a href = "/download">
-   <button type = "button"> Download </button>
-</a>
+<h1>Modificamos tu archivo. </h1>
+
+<h2>Ya lo puedes descargar pulsando en el botón de <span style="color: rgb(24,116,68);">Descargar</span> :)</h2>
+<div class="d-grid gap-2 col-1 mx-auto">
+   <a class="no-underline" href = "/download">
+      <button type = "button" class="btn btn-success"> Descargar </button>
+   </a>
+</div>
+<div style="display: flex; justify-content: center;">
+   <iframe src="https://giphy.com/embed/6tHy8UAbv3zgs" width="480" height="353" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+<p style="text-align: center;"><a href="https://giphy.com/gifs/thank-you-spongebob-squarepants-6tHy8UAbv3zgs">via GIPHY</a></p>
+ 
 {% endblock %}

@@ -6,15 +6,19 @@ import os
 import time
 from wtforms.validators import InputRequired
 import threading
-
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER_FILES'] = 'static/files/'
 app.config['UPLOAD_FOLDER_IMAGES'] = 'static/images/'
-app.config['UPLOAD_EXTENSIONS'] = ['.txt']
+app.config['UPLOAD_EXTENSIONS'] = ['.txt', '.pdf']
 app.config['MODIFIED_FILENAME'] = 'temporal' + app.config['UPLOAD_EXTENSIONS'][0]
 app.config['DOWNLOAD_FILENAME'] = 'modified' + app.config['UPLOAD_EXTENSIONS'][0]
+
+# Variables para actualizar el contador
+tiempo_final = datetime.datetime.now()
+final_time_set = False
 
 # Crear carpeta /files donde van los archivos subidos y transformados.
 def crear_carpeta(ruta_carpeta):
@@ -36,6 +40,7 @@ def borrar_archivo(ruta_archivo):
 def write_text(filename, msg):
     full_path = os.path.join(os.getcwd(),'web_interface' ,'static', 'files',filename)
     time.sleep(3)
+    msg = "".join(msg)
     with open(full_path, 'w') as f:
         f.write(msg)
         f.close()
@@ -56,7 +61,7 @@ def home():
         filename = file.filename # Get filename
         file_ext = os.path.splitext(filename)[1] # Get file extention
         if file_ext not in app.config['UPLOAD_EXTENSIONS']: # Check if file extention is allowed
-            abort(400)
+            return render_template('not_pdf.html')
         ruta_carpeta = os.path.join(os.getcwd(),'web_interface', 'static', 'files')
         crear_carpeta(ruta_carpeta)
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER_FILES'],secure_filename(app.config['MODIFIED_FILENAME']))) # Then save the file
@@ -66,22 +71,27 @@ def home():
     else:
         return render_template('index.html', file_form=formulario)
 
-# Ruta para elegir los parámetros de la transformación
-@app.route('/parameters', methods=['GET',"POST"])
-def parameters():
-    if request.method == 'POST':
-        box = request.form.getlist('preferences') # All checkboxes values stored in array of strings
-        mensaje = "".join(box)
-        session['msg'] = mensaje
-        return redirect(url_for('wait')) # Go to param.html
-    else:
-        return render_template('param.html')
+# Ruta para ver la página al subir un archivo que no es un pdf
+@app.route('/failed')
+def failed():
+    return render_template('not_pdf.html')
 
 # Ruta para ver la página "Acerca de nosotros"
 @app.route('/about')
 def about_us():
     full_filename = os.path.join(app.config['UPLOAD_FOLDER_IMAGES'], 'Prototipo_HLD.png')
     return render_template('about.html', user_image = full_filename)
+
+# Ruta para elegir los parámetros de la transformación
+@app.route('/parameters', methods=['GET',"POST"])
+def parameters():
+    if request.method == 'POST':
+        box = request.form.getlist('preferences') # All checkboxes values stored in array of strings
+        print(box)
+        session['msg'] = box
+        return redirect(url_for('wait')) # Go to param.html
+    else:
+        return render_template('param.html')
 
 # Ruta para ver la página de espera mientras se transforma el archivo
 @app.route('/wait')
@@ -90,6 +100,19 @@ def wait():
     t = threading.Thread(target=write_text, args=(app.config['DOWNLOAD_FILENAME'],mensaje))
     t.start()
     return render_template('wait.html')
+
+# Función para calcular el tiempo restante para que se transforme el archivo
+@app.route('/tiempo_restante')
+def tiempo_restante():
+    global final_time_set
+    global tiempo_final
+    tiempo_actual = datetime.datetime.now().second
+    if not final_time_set:
+        transformation_time = 10
+        tiempo_final = datetime.datetime.now() + datetime.timedelta(seconds=transformation_time)
+        final_time_set = True
+    tiempo_restante = tiempo_final.second - tiempo_actual
+    return jsonify({'tiempo_restante': tiempo_restante})
 
 # Función para comprobar si ya existe el archivo transformado
 @app.route("/comprobar_archivo")
@@ -103,6 +126,10 @@ def comprobar_archivo():
 # Ruta para ver la página para descargar el archivo transformado
 @app.route('/result')
 def result():
+    global final_time_set
+    global tiempo_final
+    final_time_set = False
+    tiempo_final = datetime.datetime.now()
     return render_template('result.html')
 
 # Función para descargar el archivo
