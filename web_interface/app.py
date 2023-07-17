@@ -8,8 +8,10 @@ from wtforms.validators import InputRequired
 import threading
 import datetime
 from backend import filter
+import logging
 
 app = Flask(__name__)
+app.logger.setLevel(logging.ERROR)
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER_FILES'] = 'static/files/'
 app.config['UPLOAD_FOLDER_IMAGES'] = 'static/images/'
@@ -67,7 +69,7 @@ def home():
         ruta_carpeta = os.path.join(os.getcwd(),'web_interface', 'static', 'files')
         crear_carpeta(ruta_carpeta)
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER_FILES'],secure_filename(app.config['USER_FILENAME']))) # Then save the file
-        ruta_archivo = os.path.join(os.getcwd(),'web_interface' ,'static', 'files',app.config['DOWNLOAD_FILENAME'])
+        ruta_archivo = os.path.join(os.getcwd(),'web_interface' ,'static', 'files',app.config['TRANSFORMED_FILENAME'])
         borrar_archivo(ruta_archivo)
         return redirect(url_for('parameters')) # Go to param.html
     else:
@@ -144,4 +146,4 @@ def download_file():
     )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
