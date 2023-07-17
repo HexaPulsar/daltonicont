@@ -15,7 +15,7 @@ def bwBin(img, upper, lower):
   imgcpy = img.copy()
   for i in range(0, imgcpy.size[0] - 1):
     for j in range(0, imgcpy.size[1] - 1):
-      pixel = imgcpy.getpixel((i,j))
+      pixel = imgcpy.getpixel((i, j))
       red    = pixel[0]
       green  = pixel[1]
       blue   = pixel[2]
