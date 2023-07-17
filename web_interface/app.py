@@ -110,12 +110,15 @@ def wait():
 def tiempo_restante():
     global final_time_set
     global tiempo_final
-    tiempo_actual = datetime.datetime.now().second
+    tiempo_actual = datetime.datetime.now()
     if not final_time_set:
-        transformation_time = 10
-        tiempo_final = datetime.datetime.now() + datetime.timedelta(seconds=transformation_time)
+        transformation_time = 120 # segundos
+        minutos_adicionales = transformation_time // 60
+        segundos_adicionales = transformation_time % 60
+        tiempo_intermedio = tiempo_actual + datetime.timedelta(minutes=minutos_adicionales)
+        tiempo_final = tiempo_intermedio + datetime.timedelta(seconds=segundos_adicionales)
         final_time_set = True
-    tiempo_restante = tiempo_final.second - tiempo_actual
+    tiempo_restante = round((tiempo_final - tiempo_actual).total_seconds())
     return jsonify({'tiempo_restante': tiempo_restante})
 
 # Función para comprobar si ya existe el archivo transformado
@@ -146,4 +149,4 @@ def download_file():
     )
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
