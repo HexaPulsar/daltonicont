@@ -18,6 +18,7 @@ app.config['UPLOAD_FOLDER_IMAGES'] = 'static/images/'
 app.config['UPLOAD_EXTENSIONS'] = ['.txt', '.pdf']
 app.config['USER_FILENAME'] = 'archivo' + app.config['UPLOAD_EXTENSIONS'][1]
 app.config['TRANSFORMED_FILENAME'] = 'filtrado' + app.config['UPLOAD_EXTENSIONS'][1]
+app.config['PRESENTACION'] = 'presentacion_modified.pdf'
 
 # Variables para actualizar el contador
 tiempo_final = datetime.datetime.now()
@@ -101,8 +102,8 @@ def parameters():
 @app.route('/wait')
 def wait():
     mensaje = session.get('msg')
-    t = threading.Thread(target=filter.full_pipeline, args=(mensaje,))
-    t.start()
+    # t = threading.Thread(target=filter.full_pipeline, args=(mensaje,))
+    # t.start()
     return render_template('wait.html')
 
 # Función para calcular el tiempo restante para que se transforme el archivo
@@ -112,7 +113,7 @@ def tiempo_restante():
     global tiempo_final
     tiempo_actual = datetime.datetime.now()
     if not final_time_set:
-        transformation_time = 120 # segundos
+        transformation_time = 150 # segundos
         minutos_adicionales = transformation_time // 60
         segundos_adicionales = transformation_time % 60
         tiempo_intermedio = tiempo_actual + datetime.timedelta(minutes=minutos_adicionales)
@@ -143,7 +144,7 @@ def result():
 @app.route('/download') 
 def download_file():
     return send_file(
-        app.config['UPLOAD_FOLDER_FILES'] + app.config['TRANSFORMED_FILENAME'],
+        app.config['UPLOAD_FOLDER_FILES'] + app.config['PRESENTACION'],
         download_name=app.config['DOWNLOAD_FILENAME'],
         as_attachment=True
     )

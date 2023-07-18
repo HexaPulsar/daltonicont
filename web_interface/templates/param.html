@@ -6,7 +6,7 @@
 {% block content %}
 <h1>Recibimos tu archivo.</h1> 
 
-<h3>Podemos transformar archivos para personas que tengam daltonismo dicromático, lo que incluye:</h3>
+<h3>Podemos transformar archivos para personas que tengan daltonismo dicromático, lo que incluye:</h3>
 <h3>Deuteranopia, Protanopia y Tritanopia</h3>
 <h3>A continuación elije la opción que aplique a tu caso.</h3>
 <h3>Cuando termines de elegir, pulsa el botón de <span style="color: red;">Transformar</span> para que transformemos tu archivo.</h3>
@@ -14,18 +14,19 @@
 <br>
 
 <form method="post">
+    <h4 style="text-align: center;">Si ves sólo el número 4, elije Deuteranopía.</h4>
+    <h4 style="text-align: center;">Si ves sólo el número 2, elije Protanopía.</h4>
+
+
     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-        <img src='static/images/deuteranopia.png' alt="User Image" width="100%" height="100%">
+        <img src='static/images/deuteranopia_protanopia.png' alt="User Image" width="100%" height="100%">
         <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value="deuteranopia" name="preferences" >
         <label class="btn btn-outline-primary" for="btncheck1">Deuteranopía</label>
-    </div>
-    <br>
-    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-        <img src='static/images/protanopia.png' alt="User Image" width="100%" height="100%">
         <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" value="protanopia" name="preferences">
         <label class="btn btn-outline-primary" for="btncheck2">&nbsp;&nbsp;Protanopía&nbsp;&nbsp;</label>
     </div>
     <br>
+    <h4 style="text-align: center;">La Tritanopía es poco común. Investiga si aplica a tu caso.</h4>
     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
         <img src='static/images/tritanopia.png' alt="User Image" width="100%" height="100%">
         <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" value="tritanopia" name="preferences">
